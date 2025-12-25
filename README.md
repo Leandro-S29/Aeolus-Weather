@@ -22,7 +22,7 @@
    ```
 2. Install dependencies  
    ```sh
-   pip install customtkinter python-dotenv requests
+   pip install customtkinter python-dotenv requests Pillow
    ```
 3. Create a `.env` file inside `Aeolus Project/`:
    ```sh
@@ -36,6 +36,9 @@
 
 ## 🧠 Use of AI:
 - Image Logo was generated using Gemini AI by Google.
+
+## 🌐 Other:
+- Icons made by [FlatIcon](https://www.flaticon.com/).
 
 ---
 
