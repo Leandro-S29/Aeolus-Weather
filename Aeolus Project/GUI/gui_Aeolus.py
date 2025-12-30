@@ -147,7 +147,6 @@ class AeolusApp(ctk.CTk):
         self.tempMaxLabel = ctk.CTkLabel(tempMinMaxFrame, text="↓ --°", font=self.fontDetails, text_color="white")
         self.tempMaxLabel.pack(side="left", padx=(20, 20), pady=10)
 
-        # TODO: Make the stats row better
         # STATS of Today ROW
         stats_container = ctk.CTkFrame(master=frameLeft, fg_color="transparent")
         stats_container.pack(fill="x", padx=20, pady=(0, 20))
