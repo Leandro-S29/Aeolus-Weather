@@ -193,34 +193,36 @@ class AeolusApp(ctk.CTk):
             messagebox.showerror("Weather Error", "Unable to load default weather data.")
     
 
-    # TODO: Add error handling for missing data and Add whats missing
     def UpdateWeatherUI(self, weatherData):
-        # Update location labels in header
-        self.locationLabel.configure(text=weatherData["city"])
-        self.locationCountry.configure(text=weatherData["country"])
-        
-        #Main Card Updates
-        # Get and set weather icon in main card
-        iconCode = weatherData["weatherIcon"]
-        iconImageData = weatherService.GetIconImage(iconCode)
-
-        if iconImageData:
-           
-            imageData = io.BytesIO(iconImageData)
-            finalizedImage = Image.open(imageData)
+        try:
+            # Update location labels in header
+            self.locationLabel.configure(text=weatherData["city"])
+            self.locationCountry.configure(text=weatherData["country"])
             
-            weatherIcon = ctk.CTkImage(light_image=finalizedImage, 
-                                      dark_image=finalizedImage, 
-                                      size=(100, 100))
-            
-            self.weatherIconLabel.configure(image=weatherIcon, text="")
-            self.weatherIconLabel.image = weatherIcon
+            #Main Card Updates
+            # Get and set weather icon in main card
+            iconCode = weatherData["weatherIcon"]
+            iconImageData = weatherService.GetIconImage(iconCode)
 
-        self.weatherTempLabel.configure(text=f"{weatherData['temperature']}°C")
-        self.weatherDescriptionLabel.configure(text=weatherData["description"])
-        self.tempMinLabel.configure(text=f"↓ {weatherData['temperatureMin']}°C")
-        self.tempMaxLabel.configure(text=f"↑ {weatherData['temperatureMax']}°C")
-        # Stats Updates
-        self.humidityLabel.configure(text=f"{weatherData['humidity']}%")
-        self.windSpeedLabel.configure(text=f"{weatherData['windSpeed']} m/s")
-        self.realFeelLabel.configure(text=f"{weatherData['realFeel']}°C")
+            if iconImageData:
+            
+                imageData = io.BytesIO(iconImageData)
+                finalizedImage = Image.open(imageData)
+                
+                weatherIcon = ctk.CTkImage(light_image=finalizedImage, 
+                                        dark_image=finalizedImage, 
+                                        size=(100, 100))
+                
+                self.weatherIconLabel.configure(image=weatherIcon, text="")
+                self.weatherIconLabel.image = weatherIcon
+
+            self.weatherTempLabel.configure(text=f"{weatherData['temperature']}°C")
+            self.weatherDescriptionLabel.configure(text=weatherData["description"])
+            self.tempMinLabel.configure(text=f"↓ {weatherData['temperatureMin']}°C")
+            self.tempMaxLabel.configure(text=f"↑ {weatherData['temperatureMax']}°C")
+            # Stats Updates
+            self.humidityLabel.configure(text=f"{weatherData['humidity']}%")
+            self.windSpeedLabel.configure(text=f"{weatherData['windSpeed']} m/s")
+            self.realFeelLabel.configure(text=f"{weatherData['realFeel']}°C")
+        except KeyError as e:
+            messagebox.showerror("Data Error", f"Missing data in weather response: {e}")
