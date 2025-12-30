@@ -44,7 +44,10 @@ class AeolusApp(ctk.CTk):
         self.fontCity = ("Arial", 20, "bold")
         self.fontCountry = ("Arial", 12)
         self.fontDesc = ("Arial", 16)
+        self.fontStatsText = ("Arial", 16, "bold")
+        self.fontStatsValue = ("Arial", 14)
         self.fontDetails = ("Arial", 14)
+
 
         # Get Images for Buttins
         nightDayImagePath = os.path.join(imageFolderPath, "night-day.png")
@@ -60,15 +63,15 @@ class AeolusApp(ctk.CTk):
         
         WindIcon = ctk.CTkImage(light_image=Image.open(os.path.join(imageFolderPath, "wind.png")),
                                 dark_image=Image.open(os.path.join(imageFolderPath, "wind.png")),
-                                size=(10, 10))
+                                size=(15, 15))
         
         HumidityIcon = ctk.CTkImage(light_image=Image.open(os.path.join(imageFolderPath, "humi.png")),
                                 dark_image=Image.open(os.path.join(imageFolderPath, "humi.png")),
-                                size=(10, 10))
+                                size=(15, 15))
         
         RealFeelIcon = ctk.CTkImage(light_image=Image.open(os.path.join(imageFolderPath, "realfeel.png")),
                                 dark_image=Image.open(os.path.join(imageFolderPath, "realfeel.png")),
-                                size=(10, 10))
+                                size=(15, 15))
         
         
         
@@ -153,22 +156,25 @@ class AeolusApp(ctk.CTk):
         stats_container.columnconfigure((0, 1, 2), weight=1)
 
         # Helper function to create the small cards to avoid repeating code
-        def create_stat_card(parent, icon, label_text):
+        def create_stat_card(parent, icon, value_text, label_text):
             card = ctk.CTkFrame(master=parent, fg_color="#FFFFFF", corner_radius=15)
             card.grid_columnconfigure(0, weight=1)
             card.grid(row=0, column=len(parent.grid_slaves()), padx=5, pady=5, sticky="nsew")
             
-            icon_label = ctk.CTkLabel(card, image=icon, text="")
+            icon_label = ctk.CTkLabel(card, image=icon, text="", fg_color="#E4F2FD", corner_radius=50)
             icon_label.pack(pady=(10, 0))
+
+            value_label = ctk.CTkLabel(card, text=value_text, font=self.fontStatsValue, text_color="grey")
+            value_label.pack(pady=(5, 0))
             
-            text_label = ctk.CTkLabel(card, text=label_text, font=self.fontDetails, text_color="black")
+            text_label = ctk.CTkLabel(card, text=label_text, font=self.fontStatsText, text_color="black")
             text_label.pack(pady=(5, 10))
             
             return text_label
         
-        self.humidityLabel = create_stat_card(stats_container, HumidityIcon, "Humidity: --%")
-        self.windSpeedLabel = create_stat_card(stats_container, WindIcon, "Wind Speed: -- m/s")
-        self.realFeelLabel = create_stat_card(stats_container, RealFeelIcon, "Real Feel: --°C")
+        self.humidityLabel = create_stat_card(stats_container, HumidityIcon, "Humidity", "--%")
+        self.windSpeedLabel = create_stat_card(stats_container, WindIcon, "Wind Speed", "-- m/s")
+        self.realFeelLabel = create_stat_card(stats_container, RealFeelIcon, "Real Feel", "--°C")
 
         # TODO: Start the right side frame content
         # Right side
@@ -215,3 +221,7 @@ class AeolusApp(ctk.CTk):
         self.weatherDescriptionLabel.configure(text=weatherData["description"])
         self.tempMinLabel.configure(text=f"↓ {weatherData['temperatureMin']}°C")
         self.tempMaxLabel.configure(text=f"↑ {weatherData['temperatureMax']}°C")
+        # Stats Updates
+        self.humidityLabel.configure(text=f"{weatherData['humidity']}%")
+        self.windSpeedLabel.configure(text=f"{weatherData['windSpeed']} m/s")
+        self.realFeelLabel.configure(text=f"{weatherData['realFeel']}°C")
