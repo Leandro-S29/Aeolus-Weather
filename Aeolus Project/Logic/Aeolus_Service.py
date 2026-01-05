@@ -54,7 +54,10 @@ class AeolusService:
             logging.warning(f"No coordinates found for city: {city}")
             return None, None, None
         
-    
+
+    #TODO: Get Weather by Coords isn't as precise as by City, need to Implement both
+    # keep the most precise as default and by coords as backup (Since by city was deprecated by OpenWeather and may stop working anytime, even if its more precise now)
+
     # Get weather by city name (Using Geocoding because of by city was deprecated by OpenWeather)
     def get_weather_data(self, city = "Porto,PT"):
 
