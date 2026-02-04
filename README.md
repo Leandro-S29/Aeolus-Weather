@@ -6,6 +6,7 @@
 ## ✨ Features
 - Live weather data for any city worldwide.
 - Temperature, humidity, wind speed, and Real Feel.
+- 4-day weather forecast.
 - User friendly interface built with CustomTkinter.
 
 ---
@@ -40,18 +41,8 @@
 ## 🌐 Other:
 - Icons made by [FlatIcon](https://www.flaticon.com/).
 
+## 📖 Note: 
+This project is using a deprecated (But functional, in early 2026) API path from OpenWeatherMap.
+I'm using this because the new API path even though is being worked on, i felt like there was some problems with the data that was being retrieved.
+
 ---
-
-## 🌍 Português (PT‑PT)
-
-### Funcionalidades
-- Meteorologia em tempo real para qualquer cidade.
-- Mostra temperatura, humidade, vento e Sensação Real.
-- Interface amigável construída com CustomTkinter.
-
-### Configuração
-1. Garanta que o Python e o pip estão instalados.
-2. Instale as Dependencias e crie o ficheiro `.env` com a sua chave API do OpenWeatherMap.
-
-### Em Desenvolvimento
-- Projeto depois de finalizado as funcionalidades básicas, sera colocado em pausa, pois irei recrear o mesmo em Flutter/Dart para aprender Dart e criar uma aplicação cross-platform com melhores funcionalidades e UI.
